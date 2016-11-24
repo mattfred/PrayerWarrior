@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import {Http} from '@angular/http';
 import {LoginRequest} from '../../models/LoginRequest';
 import {AuthToken} from '../../models/AuthToken';
+import {ApiService} from "../../providers/api-service";
 
 
 @Component({
@@ -14,11 +15,11 @@ export class LoginPage {
 
   private username: string;
   private password: string;
-  public http: Http;
+  public apiService: ApiService;
   public authToken = AuthToken;
 
-  constructor(public navCtrl: NavController, httpService: Http) {
-    this.http = httpService;
+  constructor(public navCtrl: NavController, apiService: ApiService) {
+    this.apiService = apiService;
   }
 
   login() {
@@ -26,10 +27,19 @@ export class LoginPage {
     if (this.username && this.password) {
       console.log('logging in user');
       let loginRequest = new LoginRequest(this.username, this.password);
-
-      this.http.post('http://localhost:8181/PrayerWarriorAPI/public/login', loginRequest).subscribe((response) => {
-        this.authToken = response.json().results;
-      });
+      let response = this.apiService.login(loginRequest);
+      switch (response.status) {
+        case 200: // login success
+          console.log("login success");
+          this.authToken = response.json().result;
+          break;
+        case 401: // wrong password
+          console.log("wrong password");
+          break;
+        case 500: // username not found
+          console.log("username not found");
+          break;
+      }
     }
   }
 }
