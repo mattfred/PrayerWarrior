@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Prayer Warrior</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div class="padding-top">
+
+  </div>
+  <div class="center">
+    <ion-item>
+      <ion-input placeholder="username" [value]="username" [(ngModel)]="username"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input type="password" placeholder="password" [value]="password" [(ngModel)]="password"></ion-input>
+    </ion-item>
+
+    <div class="padding">
+      <button ion-button (click)="login()" color="primary">Login</button>
+    </div>
+  </div>
+</ion-content>

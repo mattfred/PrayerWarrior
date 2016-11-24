@@ -1,0 +1,16 @@
+page-login body {
+  font: 100% Helvetica, sans-serif; }
+page-login .center {
+  margin: auto;
+  width: 200px; }
+page-login .padding-top {
+  margin-top: 50%; }
+page-login button {
+  margin: auto;
+  width: 200px; }
+page-login .item-ios {
+  padding-left: 0; }
+page-login .item-md {
+  padding-left: 0; }
+
+/*# sourceMappingURL=login.css.map */

@@ -1,0 +1,29 @@
+page-login {
+  $font-stack: Helvetica, sans-serif;
+
+  body {
+    font: 100% $font-stack;
+  }
+
+  .center {
+    margin: auto;
+    width: 200px;
+  }
+
+  .padding-top {
+    margin-top: 50%;
+  }
+
+  button {
+    margin: auto;
+    width: 200px;
+  }
+
+  .item-ios {
+    padding-left: 0;
+  }
+
+  .item-md {
+    padding-left: 0;
+  }
+}
