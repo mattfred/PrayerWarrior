@@ -1,6 +1,6 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>Prayer Warrior</ion-title>
+  <ion-navbar hideBackButton="true">
+    <ion-title>Login</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -16,8 +16,11 @@
       <ion-input type="password" placeholder="password" [value]="password" [(ngModel)]="password"></ion-input>
     </ion-item>
 
-    <div class="padding">
-      <button ion-button (click)="login()" color="primary">Login</button>
+    <div>
+      <button margin-top="15px" ion-button (click)="login()" color="primary">Login</button>
+    </div>
+    <div>
+      <button margin-top="50px" ion-button (click)="register()" color="text" clear="true">New User</button>
     </div>
   </div>
 </ion-content>

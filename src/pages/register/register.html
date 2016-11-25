@@ -6,13 +6,38 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>register</ion-title>
+
+  <ion-navbar hideBackButton="true">
+    <ion-title>Register</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-
 <ion-content padding>
+  <div class="padding-top">
+    <div class="center">
+      <ion-item>
+        <ion-input placeholder="first name" [value]="first" [(ngModel)]="first"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input placeholder="last name" [value]="last" [(ngModel)]="last"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="email" placeholder="email" [value]="email" [(ngModel)]="email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input placeholder="username" [value]="username" [(ngModel)]="username"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="password" placeholder="password" [value]="password" [(ngModel)]="password"></ion-input>
+      </ion-item>
 
+      <div>
+        <button margin-top="15px" ion-button (click)="register()" color="primary">Register</button>
+      </div>
+      <div>
+        <button margin-top="50px" ion-button (click)="login()" color="text" clear="true">Login</button>
+      </div>
+    </div>
+  </div>
 </ion-content>

@@ -1,12 +1,13 @@
+import {DateTime} from "ionic-angular";
 export class AuthToken {
 
   public token: string;
-  public expiration: string;
+  public expiration: DateTime;
   public personId: string;
 
-  constructor(token: string, expiration: string, personId: string) {
-    this.token = token;
-    this.expiration = expiration;
-    this.personId = personId;
+  constructor(array) {
+    this.token = array['token'];
+    this.expiration = array['expiration']['date'];
+    this.personId = array['personId'];
   }
 }

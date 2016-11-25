@@ -2,5 +2,6 @@
   "name": "PrayerWarrior",
   "app_id": "",
   "v2": true,
-  "typescript": true
+  "typescript": true,
+  "fonts": { "src": ["node_modules/ionic-framework/fonts/**/*.+(ttf|woff|woff2)"], "dest": "www/build/fonts" }
 }
