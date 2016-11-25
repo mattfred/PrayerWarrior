@@ -3,6 +3,9 @@ import { Component } from '@angular/core';
 import { HomePage } from '../home/home';
 import { AboutPage } from '../about/about';
 import { ContactPage } from '../contact/contact';
+import {LoginPage} from "../login/login";
+import {Globals} from "../../models/Globals";
+import {NavController} from "ionic-angular";
 
 @Component({
   templateUrl: 'tabs.html'
@@ -14,7 +17,10 @@ export class TabsPage {
   tab2Root: any = AboutPage;
   tab3Root: any = ContactPage;
 
-  constructor() {
-
+  constructor(navCtrl: NavController) {
+    if (Globals.getAuthToken() == null) {
+      navCtrl.setRoot(LoginPage);
+      navCtrl.push(LoginPage);
+    }
   }
 }
