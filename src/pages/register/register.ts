@@ -5,6 +5,8 @@ import {Http} from '@angular/http';
 import {AuthToken} from "../../models/AuthToken";
 import {LoginPage} from '../login/login'
 import {TabsPage} from '../tabs/tabs'
+import {Globals} from "../../models/Globals";
+import {LoginRequest} from "../../models/LoginRequest";
 
 /*
   Generated class for the Register page.
@@ -44,6 +46,9 @@ export class RegisterPage {
       let person = new Person(this.first, this.last, this.email, this.username, this.password);
       this.http.post("http://mattfred.com/register", person).subscribe((response) => {
         let authToken = new AuthToken(response.json());
+
+        Globals.setAuthToken(authToken);
+        Globals.setLoginRequest(new LoginRequest(person.username, person.password));
         console.log(authToken);
         this.navCtrl.setRoot(TabsPage);
         this.navCtrl.push(TabsPage);

@@ -5,6 +5,7 @@ import {LoginRequest} from '../../models/LoginRequest';
 import {AuthToken} from "../../models/AuthToken";
 import {RegisterPage} from '../register/register';
 import {TabsPage} from '../tabs/tabs'
+import {Globals} from "../../models/Globals";
 
 
 @Component({
@@ -21,6 +22,16 @@ export class LoginPage {
 
   constructor(public navCtrl: NavController, http: Http) {
     this.http = http;
+
+    console.log("Check to see if login creds are saved");
+    // no to show login screen
+    if (Globals.getLoginRequest() != null) {
+      console.log("login creds found!");
+      let loginRequest = Globals.getLoginRequest();
+      this.username = loginRequest.username;
+      this.password = loginRequest.password;
+      this.login();
+    }
   }
 
   register() {
@@ -34,6 +45,8 @@ export class LoginPage {
       let loginRequest = new LoginRequest(this.username, this.password);
       this.http.post("http://mattfred.com/login", loginRequest).subscribe((response) => {
         let authToken = new AuthToken(response.json());
+        Globals.setAuthToken(authToken.token);
+        Globals.setLoginRequest(loginRequest);
         console.log(authToken);
         this.navCtrl.setRoot(TabsPage);
         this.navCtrl.push(TabsPage);
