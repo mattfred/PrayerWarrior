@@ -11,9 +11,11 @@ import {Auth} from "../../models/Auth";
 export class HomePage {
 
   private http: Http;
+  private requests: any;
 
   constructor(public navCtrl: NavController, http: Http) {
     this.http = http;
+    this.requests = [];
     let authToken = Globals.getAuthToken();
     console.log("authToken: " + authToken);
     let header = new Headers({'Content-type': 'application/json'});
@@ -21,6 +23,7 @@ export class HomePage {
     let options = new RequestOptions({headers: header});
     http.get("http://mattfred.com/requests", options).subscribe((response) => {
       console.log(response.json());
+      this.requests = response.json();
 
     }, (error) => {
       console.log(error);

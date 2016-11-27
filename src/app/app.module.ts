@@ -7,6 +7,7 @@ import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login'
 import { RegisterPage } from '../pages/register/register'
+import {BrowserModule} from "@angular/platform-browser";
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { RegisterPage } from '../pages/register/register'
     RegisterPage
   ],
   imports: [
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    BrowserModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
