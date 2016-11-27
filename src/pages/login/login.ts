@@ -26,9 +26,10 @@ export class LoginPage {
     console.log("Check to see if login creds are saved");
     // no to show login screen
     if (Globals.getLoginRequest() != null) {
-      console.log("login creds found!");
+      console.log("login creds found! :");
       let loginRequest = Globals.getLoginRequest();
       this.username = loginRequest.username;
+      console.log("username: " + loginRequest.username);
       this.password = loginRequest.password;
       this.login();
     }

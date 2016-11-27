@@ -6,8 +6,9 @@ import {LoginRequest} from "./LoginRequest";
 export class Globals {
 
   public static getAuthToken() {
-    console.log(localStorage.getItem("auth_token"));
-    return localStorage.getItem("auth_token");
+    let token = localStorage.getItem("auth_token");
+    if (token === "undefined" || token === null) return null;
+    return token;
   }
 
   public static setAuthToken(authTokenId) {
@@ -19,7 +20,9 @@ export class Globals {
   }
 
   public static getUsername() {
-    return localStorage.getItem("username");
+    let username = localStorage.getItem("username");
+    if (username === "undefined" || username == "") return null;
+    return username;
   }
 
   public static setPassword(password) {

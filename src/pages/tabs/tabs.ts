@@ -18,7 +18,9 @@ export class TabsPage {
   tab3Root: any = ContactPage;
 
   constructor(navCtrl: NavController) {
-    if (Globals.getAuthToken() == null) {
+    console.log("tabs started");
+    if (Globals.getAuthToken() === null) {
+      console.log("auth token null");
       navCtrl.setRoot(LoginPage);
       navCtrl.push(LoginPage);
     }

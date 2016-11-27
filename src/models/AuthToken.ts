@@ -6,8 +6,8 @@ export class AuthToken {
   public personId: string;
 
   constructor(array) {
-    this.token = array['token'];
+    this.token = array['id'];
     this.expiration = array['expiration']['date'];
-    this.personId = array['personId'];
+    this.personId = array['person_id'];
   }
 }
