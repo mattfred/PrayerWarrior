@@ -20,24 +20,19 @@ export class Auth {
       console.log("username: " + loginRequest.username);
       this.password = loginRequest.password;
       console.log("password: " + loginRequest.password);
-      return this.doLogin();
-    } else {
-      return false;
+      if (this.username && this.password) {
+        let loginRequest = new LoginRequest(this.username, this.password);
+        console.log("do login");
+        this.http.post("http://mattfred.com/login", loginRequest).subscribe((response) => {
+          let authToken = new AuthToken(response.json());
+          Globals.setAuthToken(authToken.token);
+          Globals.setLoginRequest(loginRequest);
+          console.log("login success");
+          return true;
+        }, (error) => {
+          return false;
+        });
+      }
     }
-  }
-
-  private doLogin() {
-    if (this.username && this.password) {
-      let loginRequest = new LoginRequest(this.username, this.password);
-      console.log("do login");
-      this.http.post("http://mattfred.com/login", loginRequest).subscribe((response) => {
-        let authToken = new AuthToken(response.json());
-        Globals.setAuthToken(authToken.token);
-        Globals.setLoginRequest(loginRequest);
-        console.log("login success");
-        return true;
-      });
-    }
-    return false;
   }
 }

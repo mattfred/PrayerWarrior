@@ -11,7 +11,11 @@ export class PrayerRequest {
   public isAnswered: boolean;
   public createdOn: DateTime;
 
-  constructor(array) {
+  constructor() {
+
+  }
+
+  init(array) {
     this.id = array['id'];
     this.title = array['title'];
     this.details = array['details'];
