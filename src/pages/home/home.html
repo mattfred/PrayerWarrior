@@ -12,7 +12,8 @@
 <ion-content padding>
   <ion-list>
     <ion-item *ngFor="let request of requests" (click)="itemSelected(request)">
-      {{request.title}}
+      <h2>{{request.title}}</h2>
+      <ion-note item-right>{{request.createdOn | date:"MMM dd, yyyy"}}</ion-note>
     </ion-item>
   </ion-list>
 </ion-content>

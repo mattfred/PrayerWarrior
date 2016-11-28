@@ -1,7 +1,4 @@
 import {LoginRequest} from "./LoginRequest";
-/**
- * Created by matthewfrederick on 11/25/16.
- */
 
 export class Globals {
 

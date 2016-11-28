@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NavController} from 'ionic-angular';
+import {NavController, LoadingController} from 'ionic-angular';
 import {Http, Headers, RequestOptions} from "@angular/http";
 import {Globals} from "../../models/Globals";
 import {Auth} from "../../models/Auth";
@@ -13,39 +13,66 @@ import {LoginPage} from "../login/login";
 export class HomePage {
 
   private requests: any;
+  private loader: any;
 
-  constructor(public navCtrl: NavController, public http: Http) {
+  constructor(public navCtrl: NavController, public http: Http, public loadingCtrl: LoadingController) {
     this.requests = [];
-    if (!Globals.getPassword()) {
-      console.log("auth token null");
-      navCtrl.setRoot(LoginPage);
-      navCtrl.push(LoginPage);
+    this.loader = this.loadingCtrl.create();
+  }
+
+  ionViewWillEnter() {
+    this.presentLoading();
+    if (!Globals.getAuthToken() && !Globals.getPassword()) { // no auth token or password
+      this.goToLogin();
+    } else if (!Globals.getAuthToken() && Globals.getPassword()) { // no auth token but password is present
+      this.tryToLogin();
     } else {
       let authToken = Globals.getAuthToken();
       console.log("authToken: " + authToken);
       let header = new Headers({'Content-type': 'application/json'});
       header.append('Authorization', authToken);
       let options = new RequestOptions({headers: header});
-      http.get("http://mattfred.com/requests", options).subscribe((response) => {
+      this.http.get("http://mattfred.com/requests", options).subscribe((response) => {
         console.log(response.json());
         this.requests = response.json();
+        this.hideLoading();
       }, (error) => {
         console.log(error);
         switch (error.status) {
           case 401:
-            let auth = new Auth(http);
-            let success = auth.login();
-            if (success) this.constructor(navCtrl, http);
-            else {
-              console.log("didn't work :(")
-            }
+            this.tryToLogin();
             break;
         }
       });
     }
   }
 
+  presentLoading() {
+    this.loader.present();
+  }
+
+  hideLoading() {
+    this.loader.dismissAll();
+  }
+
+  tryToLogin() {
+    let auth = new Auth(this.http);
+    let success = auth.login();
+    if (success) this.ionViewWillEnter();
+    else {
+      this.goToLogin();
+      this.hideLoading();
+    }
+  }
+
+  goToLogin() {
+    this.navCtrl.setRoot(LoginPage);
+    this.navCtrl.push(LoginPage);
+    this.hideLoading();
+  }
+
   settings() {
     this.navCtrl.push(SettingsPage);
+    this.hideLoading();
   }
 }
