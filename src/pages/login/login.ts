@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {NavController, AlertController} from 'ionic-angular';
+import {NavController, AlertController, LoadingController} from 'ionic-angular';
 import {Http} from '@angular/http';
 import {LoginRequest} from '../../models/LoginRequest';
 import {AuthToken} from "../../models/AuthToken";
@@ -17,10 +17,11 @@ export class LoginPage {
 
   private username: string;
   private password: string;
+  private loader: any;
 
-
-  constructor(public navCtrl: NavController, public http: Http, public alertCtrl: AlertController) {
-
+  constructor(public navCtrl: NavController, public http: Http, public alertCtrl: AlertController,
+              public loadingCtrl: LoadingController) {
+    this.loader = this.loadingCtrl.create();
     console.log("Check to see if login creds are saved");
     // no to show login screen
     if (Globals.getLoginRequest()) {
@@ -40,6 +41,7 @@ export class LoginPage {
 
   login() {
     if (this.username && this.password) {
+      this.presentLoading();
       let loginRequest = new LoginRequest(this.username, this.password);
       this.http.post("http://mattfred.com/login", loginRequest).subscribe((response) => {
         let authToken = new AuthToken(response.json());
@@ -54,7 +56,16 @@ export class LoginPage {
     }
   }
 
+  presentLoading() {
+    this.loader.present();
+  }
+
+  hideLoading() {
+    this.loader.dismissAll();
+  }
+
   showAlert(statusCode) {
+    this.hideLoading();
     var title = "";
     var message = "";
     switch (statusCode) {

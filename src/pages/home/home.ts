@@ -5,6 +5,7 @@ import {Globals} from "../../models/Globals";
 import {Auth} from "../../models/Auth";
 import {SettingsPage} from "../settings/settings";
 import {LoginPage} from "../login/login";
+import {DetailsPage} from "../details/details";
 
 @Component({
   selector: 'page-home',
@@ -74,5 +75,11 @@ export class HomePage {
   settings() {
     this.navCtrl.push(SettingsPage);
     this.hideLoading();
+  }
+
+  itemSelected(request) {
+    this.navCtrl.push(DetailsPage, {
+      'prayerRequest': request
+    });
   }
 }

@@ -14,6 +14,7 @@
     <ion-item *ngFor="let request of requests" (click)="itemSelected(request)">
       <h2>{{request.title}}</h2>
       <ion-note item-right>{{request.createdOn | date:"MMM dd, yyyy"}}</ion-note>
+      <ion-icon name="arrow-forward" item-right></ion-icon>
     </ion-item>
   </ion-list>
 </ion-content>

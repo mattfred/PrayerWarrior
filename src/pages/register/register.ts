@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import {NavController, LoadingController} from 'ionic-angular';
 import {Person} from "../../models/Person";
 import {Http} from '@angular/http';
 import {AuthToken} from "../../models/AuthToken";
@@ -26,13 +26,12 @@ export class RegisterPage {
   private username: string;
   private password: string;
   private http: Http;
+  private loader: any;
 
-  constructor(public navCtrl: NavController, http: Http) {
+
+  constructor(public navCtrl: NavController, http: Http, public loadingCtrl: LoadingController) {
     this.http = http;
-  }
-
-  ionViewDidLoad() {
-    console.log('Hello RegisterPage Page');
+    this.loader = this.loadingCtrl.create();
   }
 
   login() {
@@ -40,9 +39,18 @@ export class RegisterPage {
     this.navCtrl.push(LoginPage);
   }
 
+  presentLoading() {
+    this.loader.present();
+  }
+
+  hideLoading() {
+    this.loader.dismissAll();
+  }
+
   register() {
     console.log('Register new User: ' + this.username + " " + this.password);
     if (this.username && this.password && this.first && this.last && this.email) {
+      this.presentLoading();
       let person = new Person(this.first, this.last, this.email, this.username, this.password);
       this.http.post("http://mattfred.com/register", person).subscribe((response) => {
         let authToken = new AuthToken(response.json());
