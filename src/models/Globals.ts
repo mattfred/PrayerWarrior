@@ -7,8 +7,8 @@ export class Globals {
 
   public static getAuthToken() {
     let token = localStorage.getItem("auth_token");
-    if (token === "undefined" || token === null) return null;
-    return token;
+    if (token) return token;
+    return null;
   }
 
   public static setAuthToken(authTokenId) {
@@ -21,8 +21,8 @@ export class Globals {
 
   public static getUsername() {
     let username = localStorage.getItem("username");
-    if (username === "undefined" || username == "") return null;
-    return username;
+    if (username) return username;
+    return null;
   }
 
   public static setPassword(password) {
@@ -30,7 +30,10 @@ export class Globals {
   }
 
   public static getPassword() {
-    return localStorage.getItem("password");
+    let password = localStorage.getItem("password");
+    if (password) return password;
+    console.log("password: " + password);
+    return "";
   }
 
   public static setLoginRequest(loginRequest: LoginRequest) {
@@ -39,9 +42,8 @@ export class Globals {
   }
 
   public static getLoginRequest() {
-    if (this.getUsername() != null) {
-      let loginRequest = new LoginRequest(this.getUsername(), this.getPassword());
-      return loginRequest;
+    if (this.getUsername() && this.getPassword()) {
+      return new LoginRequest(this.getUsername(), this.getPassword());
     }
     return null;
   }

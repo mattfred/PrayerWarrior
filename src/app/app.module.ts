@@ -8,6 +8,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login'
 import { RegisterPage } from '../pages/register/register'
 import {BrowserModule} from "@angular/platform-browser";
+import {SettingsPage} from "../pages/settings/settings";
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import {BrowserModule} from "@angular/platform-browser";
     HomePage,
     TabsPage,
     LoginPage,
-    RegisterPage
+    RegisterPage,
+    SettingsPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -31,7 +33,8 @@ import {BrowserModule} from "@angular/platform-browser";
     HomePage,
     TabsPage,
     LoginPage,
-    RegisterPage
+    RegisterPage,
+    SettingsPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import {NavController, AlertController} from 'ionic-angular';
 import {Http} from '@angular/http';
 import {LoginRequest} from '../../models/LoginRequest';
 import {AuthToken} from "../../models/AuthToken";
@@ -17,15 +17,13 @@ export class LoginPage {
 
   private username: string;
   private password: string;
-  private http: Http;
 
 
-  constructor(public navCtrl: NavController, http: Http) {
-    this.http = http;
+  constructor(public navCtrl: NavController, public http: Http, public alertCtrl: AlertController) {
 
     console.log("Check to see if login creds are saved");
     // no to show login screen
-    if (Globals.getLoginRequest() != null) {
+    if (Globals.getLoginRequest()) {
       console.log("login creds found! :");
       let loginRequest = Globals.getLoginRequest();
       this.username = loginRequest.username;
@@ -41,7 +39,6 @@ export class LoginPage {
   }
 
   login() {
-    console.log('Login click: ' + this.username + " " + this.password);
     if (this.username && this.password) {
       let loginRequest = new LoginRequest(this.username, this.password);
       this.http.post("http://mattfred.com/login", loginRequest).subscribe((response) => {
@@ -51,7 +48,34 @@ export class LoginPage {
         console.log(authToken);
         this.navCtrl.setRoot(TabsPage);
         this.navCtrl.push(TabsPage);
+      }, (error) => {
+        this.showAlert(error.status);
       });
     }
+  }
+
+  showAlert(statusCode) {
+    var title = "";
+    var message = "";
+    switch (statusCode) {
+      case 401:
+        title = "Wrong Password";
+        message = "Password incorrect. Please try again";
+        break;
+      case 404:
+        title = "Login Error";
+        message = "Username not found. Please try again or register";
+        break;
+      case 500:
+        title = "Error";
+        message = "An error has occurred. Please try again later.";
+        break;
+    }
+    let alert = this.alertCtrl.create({
+      title: title,
+      subTitle: message,
+      buttons: ['OK']
+    });
+    alert.present();
   }
 }

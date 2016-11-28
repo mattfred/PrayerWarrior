@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-title>Prayer List</ion-title>
     <ion-buttons end>
-    <button ion-button clear color="dark">
+    <button ion-button clear color="dark" (click)="settings()">
       <ion-icon name="settings"></ion-icon>
     </button>
     </ion-buttons>
@@ -11,7 +11,7 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-item *ngFor="let request of requests">
+    <ion-item *ngFor="let request of requests" (click)="itemSelected(request)">
       {{request.title}}
     </ion-item>
   </ion-list>

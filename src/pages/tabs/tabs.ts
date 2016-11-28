@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-
 import { HomePage } from '../home/home';
 import { AboutPage } from '../about/about';
 import { ContactPage } from '../contact/contact';
@@ -18,11 +17,6 @@ export class TabsPage {
   tab3Root: any = ContactPage;
 
   constructor(navCtrl: NavController) {
-    console.log("tabs started");
-    if (Globals.getAuthToken() === null) {
-      console.log("auth token null");
-      navCtrl.setRoot(LoginPage);
-      navCtrl.push(LoginPage);
-    }
+
   }
 }
