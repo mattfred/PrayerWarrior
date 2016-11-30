@@ -46,7 +46,8 @@ export class NewRequestPage {
       let header = new Headers({'Content-type': 'application/json'});
       header.append('Authorization', authToken);
       let options = new RequestOptions({headers: header});
-      this.http.post("http://mattfred.com/saveRequest", options).subscribe((response) => {
+      console.log(options);
+      this.http.post("http://mattfred.com/saveRequest", newRequest, options).subscribe((response) => {
         this.navCtrl.parent.select(0); // go back to main tab
       }, (error) => {
         switch (error.status) {
