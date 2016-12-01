@@ -76,6 +76,7 @@ export class NewRequestPage {
       this.onSave();
     } else {
       this.goToLogin();
+      Globals.setPassword(null);
       //this.hideLoading();
     }
   }

@@ -62,6 +62,7 @@ export class HomePage {
     if (success) this.ionViewWillEnter();
     else {
       this.goToLogin();
+      Globals.setPassword(null); // remove password so that it doesn't loop logging in
       this.hideLoading();
     }
   }
